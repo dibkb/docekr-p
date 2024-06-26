@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  fastapi:
+    build:
+      context: ./fastapi
+      dockerfile: Dockerfile
+    container_name: fastapi-c
+    image: fastapi-i
+    expose:
+      - "8000:8000"
