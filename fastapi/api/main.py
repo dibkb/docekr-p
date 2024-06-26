@@ -1,11 +1,10 @@
 from fastapi import FastAPI
-import uvicorn
 app = FastAPI()
 
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"Hello World 🌍"}
 
 @app.get("/test")
 def read_root():

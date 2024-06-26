@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 services:
   fastapi:
     build:
@@ -6,5 +6,5 @@ services:
       dockerfile: Dockerfile
     container_name: fastapi-c
     image: fastapi-i
-    expose:
+    ports:
       - "8000:8000"
