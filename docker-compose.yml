@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3.8"
 services:
   fastapi:
     build:
@@ -8,13 +8,24 @@ services:
     image: fastapi-i
     expose:
       - "8000"
+
   nginx:
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
     container_name: nginx-c
-    image: nginx-i
+    image: nginx
     ports:
       - "80:80"
+      - "443:443"
+    restart: unless-stopped
     depends_on:
       - fastapi
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+  certbot:
+    image: certbot/certbot
+    container_name: certbot-c
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email dibas9110@gmail.com -d testssl.dibkb.xyz --agree-tos
